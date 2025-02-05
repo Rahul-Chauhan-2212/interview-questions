@@ -101,4 +101,9 @@ This approach provides greater flexibility and reduces tight coupling between cl
 
 <hr>
 <br>
+<hr>
+
+### Java 8 Features
+
+[Java 8 Features](Java8Feature.md)
 
