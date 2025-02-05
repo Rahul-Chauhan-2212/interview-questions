@@ -1,13 +1,17 @@
 # SOLID Principles
+
 <hr>
 
 ### Single Responsibility Principle (SRP)
 
-Definition: A class should have only one reason to change, meaning it should have only one responsibility.
+Definition: A class should have only one reason to change, meaning it should have only one
+responsibility.
 
 Poor Example:
 
-In this example, the OrderService class handles both order processing and notification sending, violating SRP.
+In this example, the OrderService class handles both order processing and notification sending,
+violating SRP.
+
 ```
 public class OrderService {
     public void processOrder(Order order) {
@@ -21,9 +25,12 @@ public class OrderService {
     }
 }
 ```
+
 Improved Example:
 
-Here, responsibilities are separated into OrderService for order processing and EmailService for sending emails, adhering to SRP.
+Here, responsibilities are separated into OrderService for order processing and EmailService for
+sending emails, adhering to SRP.
+
 ```
 public class OrderService {
     private EmailService emailService;
@@ -45,6 +52,7 @@ public class EmailService {
     }
 }
 ```
+
 <br>
 <hr>
 
@@ -55,6 +63,7 @@ Definition: Software entities should be open for extension but closed for modifi
 Poor Example:
 
 Adding a new payment method requires modifying the PaymentProcessor class, violating OCP.
+
 ```
 public class PaymentProcessor {
     public void processPayment(Order order, String paymentType) {
@@ -67,9 +76,12 @@ public class PaymentProcessor {
     }
 }
 ```
+
 Improved Example:
 
-Introducing a PaymentMethod interface allows adding new payment methods without modifying existing code, adhering to OCP.
+Introducing a PaymentMethod interface allows adding new payment methods without modifying existing
+code, adhering to OCP.
+
 ```
 public interface PaymentMethod {
     void processPayment(Order order);
@@ -95,17 +107,22 @@ public class PaymentProcessor {
     }
 }
 ```
+
 <br>
 <hr>
 
 ###
+
 Liskov Substitution Principle (LSP)
 
-Definition: Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program.
+Definition: Objects of a superclass should be replaceable with objects of a subclass without
+affecting the correctness of the program.
 
 Poor Example:
 
-The FreeShippingOrder subclass overrides the calculateTotal method in a way that changes expected behavior, violating LSP.
+The FreeShippingOrder subclass overrides the calculateTotal method in a way that changes expected
+behavior, violating LSP.
+
 ```
 public class Order {
     public double calculateTotal() {
@@ -122,9 +139,12 @@ public class FreeShippingOrder extends Order {
     }
 }
 ```
+
 Improved Example:
 
-The Order class uses a ShippingStrategy to determine shipping costs, allowing for interchangeable behaviors without altering the class hierarchy, adhering to LSP.
+The Order class uses a ShippingStrategy to determine shipping costs, allowing for interchangeable
+behaviors without altering the class hierarchy, adhering to LSP.
+
 ```
 public class Order {
     private ShippingStrategy shippingStrategy;
@@ -156,6 +176,7 @@ public class FreeShipping implements ShippingStrategy {
     }
 }
 ```
+
 <br>
 <hr>
 
@@ -165,7 +186,9 @@ Definition: No client should be forced to depend on methods it does not use.
 
 Poor Example:
 
-The OrderService interface forces implementing classes to define methods they may not need, violating ISP.
+The OrderService interface forces implementing classes to define methods they may not need,
+violating ISP.
+
 ```
 public interface OrderService {
     void processOnlineOrder(Order order);
@@ -190,9 +213,12 @@ public class OnlineOrderService implements OrderService {
     }
 }
 ```
+
 Improved Example:
 
-Separate interfaces for each order type ensure that implementing classes only depend on relevant methods, adhering to ISP.
+Separate interfaces for each order type ensure that implementing classes only depend on relevant
+methods, adhering to ISP.
+
 ```
 public interface OnlineOrderService {
     void processOnlineOrder(Order order);
@@ -213,16 +239,20 @@ public class OnlineOrderProcessor implements OnlineOrderService {
     }
 }
 ```
+
 <br>
 <hr>
 
 ### Dependency Inversion Principle (DIP)
 
-Definition: High-level modules should not depend on low-level modules. Both should depend on abstractions.
+Definition: High-level modules should not depend on low-level modules. Both should depend on
+abstractions.
 
 Poor Example:
 
-The OrderService class depends directly on the EmailService class, making it difficult to substitute or mock dependencies, violating DIP.
+The OrderService class depends directly on the EmailService class, making it difficult to substitute
+or mock dependencies, violating DIP.
+
 ```
 public class OrderService {
     private EmailService emailService = new EmailService();
@@ -233,9 +263,12 @@ public class OrderService {
     }
 }
 ```
+
 Improved Example:
 
-The OrderService class depends on the NotificationService interface, allowing for flexible dependency injection, adhering to DIP.
+The OrderService class depends on the NotificationService interface, allowing for flexible
+dependency injection, adhering to DIP.
+
 ```
 public interface NotificationService {
     void notify(Order order);
